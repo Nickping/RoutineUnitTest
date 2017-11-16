@@ -26,8 +26,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <Button
-                android:id="@+id/routine_item_btn"
-                android:text="상세보기"
+                android:id="@+id/btn_routine_delete"
+                android:text="삭제하기"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

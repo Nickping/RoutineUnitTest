@@ -68,4 +68,35 @@ public class RoutinePresenter {
             }
         });
     }
+
+    public void addTask() {
+        RoutineItem routineItem= new RoutineItem();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://52.79.180.194:8080")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiService service = retrofit.create(ApiService.class);
+
+        routineItem.userId="59f1f63af6c5f35fd2d105cd";
+        routineItem.hour = "21";
+        routineItem.minute="9";
+        routineItem.task_type = "message";
+        routineItem.data = new LinkedTreeMap<>();
+        routineItem.data.put("text","send test");
+        Call<Void> c = service.addTask(routineItem);
+        c.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d(TAG, "onResponse: ");
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d(TAG, "onFailure: ");
+            }
+        });
+        getRoutineData();
+    }
+
 }

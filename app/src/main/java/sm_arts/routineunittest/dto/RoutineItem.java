@@ -12,4 +12,7 @@ public class RoutineItem {
     public String task_type;
     public String userId;
     public LinkedTreeMap<String,Object> data;
+    public String hour;
+    public String minute;
+
 }

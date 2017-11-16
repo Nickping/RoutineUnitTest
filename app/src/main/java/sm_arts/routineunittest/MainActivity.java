@@ -5,6 +5,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import sm_arts.routineunittest.dto.RoutineItem;
 
-public class MainActivity extends AppCompatActivity implements RoutineView{
+public class MainActivity extends AppCompatActivity implements RoutineView {
     @BindView(R.id.main_swipe)
     SwipeRefreshLayout mSwipeRefreshLayout;
     RoutinePresenter mRoutinePresenter;
@@ -21,6 +23,9 @@ public class MainActivity extends AppCompatActivity implements RoutineView{
     RecyclerView mRecyclerView;
     RoutineAdapter mRoutineAdapter;
     List<RoutineItem> mRoutineItemList;
+    @BindView(R.id.addTask)
+    Button mButtonAddTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +49,12 @@ public class MainActivity extends AppCompatActivity implements RoutineView{
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mRoutineAdapter);
         mRecyclerView.setHasFixedSize(true);
-
+        mButtonAddTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRoutinePresenter.addTask();
+            }
+        });
 
     }
 
