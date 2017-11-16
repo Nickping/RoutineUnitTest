@@ -44,14 +44,13 @@ public class RoutinePresenter {
             @Override
             public void onResponse(Call<List<HashMap<String, Object>>> call, Response<List<HashMap<String, Object>>> response) {
                 List<RoutineItem> routineItems = new ArrayList<RoutineItem>();
-                for(int i=0;i<response.body().size();i++)
-                {
-                    HashMap<String,Object> result = response.body().get(i);
+                for (int i = 0; i < response.body().size(); i++) {
+                    HashMap<String, Object> result = response.body().get(i);
                     RoutineItem routineItem = new RoutineItem();
-                    routineItem.data = (LinkedTreeMap<String,Object>)result.get("data");
-                    routineItem._id = (String)result.get("_id");
-                    routineItem.task_type = (String)result.get("task_type");
-                    routineItem.time_id = (String)result.get("time_id");
+                    routineItem.data = (LinkedTreeMap<String, Object>) result.get("data");
+                    routineItem._id = (String) result.get("_id");
+                    routineItem.task_type = (String) result.get("task_type");
+                    routineItem.time_id = (String) result.get("time_id");
                     routineItem.userId = (String) result.get("userId");
                     routineItems.add(routineItem);
                 }
@@ -70,19 +69,19 @@ public class RoutinePresenter {
     }
 
     public void addTask() {
-        RoutineItem routineItem= new RoutineItem();
+        RoutineItem routineItem = new RoutineItem();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://52.79.180.194:8080")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService service = retrofit.create(ApiService.class);
 
-        routineItem.userId="59f1f63af6c5f35fd2d105cd";
+        routineItem.userId = "59f1f63af6c5f35fd2d105cd";
         routineItem.hour = "21";
-        routineItem.minute="9";
+        routineItem.minute = "9";
         routineItem.task_type = "message";
         routineItem.data = new LinkedTreeMap<>();
-        routineItem.data.put("text","send test");
+        routineItem.data.put("text", "send test");
         Call<Void> c = service.addTask(routineItem);
         c.enqueue(new Callback<Void>() {
             @Override
