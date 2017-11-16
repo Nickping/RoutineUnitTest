@@ -99,4 +99,30 @@ public class RoutinePresenter {
         getRoutineData();
     }
 
+    public void deleteRoutineItem(RoutineItem routineItem) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://52.79.180.194:8080")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService service = retrofit.create(ApiService.class);
+
+        Call<Void> c = service.deleteTask(routineItem._id);
+        c.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d(TAG, "onResponse: ");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d(TAG, "onFailure: ");
+            }
+        });
+
+        getRoutineData();
+
+
+    }
 }

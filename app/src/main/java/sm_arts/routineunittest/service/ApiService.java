@@ -5,6 +5,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import sm_arts.routineunittest.dto.RoutineItem;
@@ -20,4 +21,9 @@ public interface ApiService {
 
     @POST("/api/timer/addTask")
     Call<Void> addTask(@Body RoutineItem routineItem);
+
+    @DELETE("api/timer/deleteTask")
+    Call<Void> deleteTask(@Header("Authorization") String _id);
+
+
 }

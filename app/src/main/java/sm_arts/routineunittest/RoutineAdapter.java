@@ -27,7 +27,8 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
     private  List<RoutineItem> mRoutineItems;
     private RoutineItemlistener mDeleteButtonListner;
 
-    public RoutineAdapter(List<RoutineItem> routineItems) {
+    public RoutineAdapter(List<RoutineItem> routineItems, RoutineItemlistener mDeleteButtonListner) {
+        this.mDeleteButtonListner = mDeleteButtonListner;
         this.mRoutineItems = routineItems;
     }
     public void setItems(List<RoutineItem> mRoutineItems)
@@ -53,7 +54,7 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
         Button mButtonRoutineDelete;
         RoutineItemlistener mRoutineDeleteListener;
 
-        public RoutineViewHolder(View itemView) {
+        public RoutineViewHolder(View itemView, final RoutineItemlistener mRoutineDeleteListener) {
             super(itemView);
 
             mLinearLayout = (LinearLayout)itemView.findViewById(R.id.routine_item_linear);
@@ -61,13 +62,19 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
             mTextView = (TextView) itemView.findViewById(R.id.routine_item_tv);
             mTextViewData = (TextView)itemView.findViewById(R.id.routine_item_data_tv);
             mButtonRoutineDelete = (Button) itemView.findViewById(R.id.btn_routine_delete);
+            mButtonRoutineDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mRoutineDeleteListener.onItemClicked(v, getAdapterPosition());
+                }
+            });
         }
     }
 
     @Override
     public RoutineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.routineitem, parent, false);
-        RoutineViewHolder holder = new RoutineViewHolder(v);
+        RoutineViewHolder holder = new RoutineViewHolder(v, mDeleteButtonListner);
         return holder;
     }
 

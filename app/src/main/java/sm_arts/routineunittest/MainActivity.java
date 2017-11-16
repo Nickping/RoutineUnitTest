@@ -14,6 +14,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sm_arts.routineunittest.dto.RoutineItem;
+import sm_arts.routineunittest.helper.RoutineItemlistener;
 
 public class MainActivity extends AppCompatActivity implements RoutineView {
     @BindView(R.id.main_swipe)
@@ -32,7 +33,13 @@ public class MainActivity extends AppCompatActivity implements RoutineView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mRoutineItemList = new ArrayList<>();
-        mRoutineAdapter = new RoutineAdapter(mRoutineItemList);
+        mRoutineAdapter = new RoutineAdapter(mRoutineItemList, new RoutineItemlistener() {
+            @Override
+            public void onItemClicked(View v, int position) {
+                RoutineItem routineItem = mRoutineAdapter.getItemWithPosition(position);
+                mRoutinePresenter.deleteRoutineItem(routineItem);
+            }
+        });
         mRoutinePresenter = new RoutinePresenter(this, mRoutineAdapter);
         initlayout();
 
